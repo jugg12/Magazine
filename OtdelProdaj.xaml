@@ -1,0 +1,339 @@
+﻿<Window x:Class="Magazine.OtdelProdaj"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Magazine" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"    
+        BorderThickness="0"
+        mc:Ignorable="d"
+         MinWidth="1435"
+        MinHeight="650"
+        
+        
+        Title="Отдел продаж" Height="650" Width="1475" WindowStartupLocation="CenterScreen" WindowState="Maximized" FontSize="24" Background="#FFF4FFD6" Loaded="Window_Loaded">
+    <Grid>
+        <DockPanel>
+            <WrapPanel DockPanel.Dock="Top">
+                <StackPanel Margin="10,0,0,0">
+                    <Label FontSize="14" Height="43" Width="198">Наименование товара</Label>
+                    <ComboBox x:Name="TovarBoxlist" DisplayMemberPath="title" Width="200" FontSize="14" SelectionChanged="TovarBoxlist_SelectionChanged" >
+
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Margin="10,0,0,0">
+                    <Label FontSize="14" Height="43" Width="198">Категория</Label>
+                    <ComboBox x:Name="KategBoxlist"   DisplayMemberPath="title" Width="200" FontSize="14"/>
+                </StackPanel>
+                <StackPanel Margin="10,0,0,0">
+                    <Label FontSize="14" Height="43" Width="198">Поставщик</Label>
+                    <ComboBox x:Name="PostBoxlist"   DisplayMemberPath="title" Width="200" FontSize="14" SelectionChanged="PostBoxlist_SelectionChanged"/>
+                </StackPanel>
+                <StackPanel Margin="10,0,0,0">
+                    <Label FontSize="14" Height="43" Width="198">Код товара</Label>
+                    <mah:RangeSlider  x:Name="priceSlide" Margin="0,0,0,0" VerticalAlignment="Center" Width="200" AutoToolTipPlacement="TopLeft" Background="Transparent"/>
+                </StackPanel>
+                <StackPanel Margin="10,0,0,0">
+                    <Label FontSize="14">Дата поставки</Label>
+                    <DatePicker Name="datePickerPost"  Width="200" Height="25" FontSize="14" />
+                </StackPanel>
+
+                <WrapPanel Margin="0,15">
+
+                    <Button Name="btnclr" ToolTip="Очистить сортировку" Height="35" Margin="10,5,0,0"  HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="120" MaxHeight="35" Width="35" BorderBrush="#FF6E9AF5" Foreground="#00000000" Background="#FF497EEE" Click="btnclr_Click" >
+                        <materialDesign:PackIcon Height="25" Width="25">
+                            <materialDesign:PackIcon.Background>
+                                <ImageBrush ImageSource="iconfinder_edit-clear_23227.png"/>
+                            </materialDesign:PackIcon.Background>
+                        </materialDesign:PackIcon>
+                    </Button>
+
+                    <Button Name="btnfind" ToolTip="Поиск" Height="35" Margin="10,5,0,0"  HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="120" MaxHeight="35" Width="35" BorderBrush="#FF6E9AF5" Foreground="#00000000" Background="#FF497EEE" Click="btnfind_Click" >
+                        <materialDesign:PackIcon Height="25" Width="25">
+                            <materialDesign:PackIcon.Background>
+                                <ImageBrush ImageSource="iconfinder_67_111124.png"/>
+                            </materialDesign:PackIcon.Background>
+                        </materialDesign:PackIcon>
+                    </Button>
+                    <Button Name="btnviv" ToolTip="Вывести данные в Excel" Height="35" Margin="10,5,0,0"  HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="120" MaxHeight="35" Width="35" BorderBrush="#FF6E9AF5" Foreground="#00000000" Background="#FF497EEE" Click="btnviv_Click" >
+                        <materialDesign:PackIcon Height="25" Width="25">
+                            <materialDesign:PackIcon.Background>
+                                <ImageBrush ImageSource="iconfinder_file_2427703.png"/>
+                            </materialDesign:PackIcon.Background>
+                        </materialDesign:PackIcon>
+                    </Button>
+
+                    <Button  Name="btndob" ToolTip="Добавление товара" Height="35" Margin="10,5,0,0"  HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="120" MaxHeight="35" Width="35" BorderBrush="#FF6E9AF5" Background="#FF497EEE" Click="btndob_Click" >
+                        <materialDesign:PackIcon Height="25" Width="25" Foreground="#00000000">
+                            <materialDesign:PackIcon.Background>
+                                <ImageBrush ImageSource="iconfinder_plus-24_103172.png"/>
+                            </materialDesign:PackIcon.Background>
+                        </materialDesign:PackIcon>
+
+                    </Button>
+
+                    <Button Name="btnud" ToolTip="Удаление выделенной позиции" Height="35" Margin="10,5,0,0" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="120" MaxHeight="35" Width="35" BorderBrush="#FF6E9AF5" Foreground="#00000000" Background="#FF497EEE" Click="btnud_Click" >
+                        <materialDesign:PackIcon Height="25" Width="25">
+                            <materialDesign:PackIcon.Background>
+                                <ImageBrush ImageSource="iconfinder_ic_delete_48px_3669361.png"/>
+                            </materialDesign:PackIcon.Background>
+                        </materialDesign:PackIcon>
+                    </Button>
+
+                    <Button Name="btnsotr" ToolTip="Информация о сотрудниках" Height="35" Margin="10,5,0,0"  HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="120" MaxHeight="35" Width="35" BorderBrush="#FF6E9AF5" Foreground="#00000000" Background="#FF497EEE" Click="btnsotr_Click" >
+                        <materialDesign:PackIcon Height="25" Width="25">
+                            <materialDesign:PackIcon.Background>
+                                <ImageBrush ImageSource="iconfinder_person-people-man-profile-human_3643745.png"/>
+                            </materialDesign:PackIcon.Background>
+                        </materialDesign:PackIcon>
+                    </Button>
+                    <Button Name="btnPost" ToolTip="Информация о поставщиках" Height="35" Margin="10,5,0,0"  HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="120" MaxHeight="35" Width="35" BorderBrush="#FF6E9AF5" Foreground="#00000000" Background="#FF497EEE" Click="btnPost_Click" >
+                        <materialDesign:PackIcon Height="25" Width="25">
+                            <materialDesign:PackIcon.Background>
+                                <ImageBrush ImageSource="iconfinder_15_1757454.png"/>
+                            </materialDesign:PackIcon.Background>
+
+                        </materialDesign:PackIcon>
+                    </Button>
+                    <Button Name="btnPostTovara" ToolTip="Информация о поставках товара" Height="35" Margin="10,5,0,0"  HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="120" MaxHeight="35" Width="35" BorderBrush="#FF6E9AF5" Foreground="#00000000" Background="#FF497EEE" Click="btnPostTovara_Click" >
+                        <materialDesign:PackIcon Height="25" Width="25">
+                            <materialDesign:PackIcon.Background>
+                                <ImageBrush ImageSource="iconfinder_comerce_delivery_shop_business-47_4544808.png"/>
+                            </materialDesign:PackIcon.Background>
+
+                        </materialDesign:PackIcon>
+                    </Button>
+                    <Button Name="btnSklad" ToolTip="Склад" Height="35" Margin="10,5,0,0"  HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="120" MaxHeight="35" Width="35" BorderBrush="#FF6E9AF5" Foreground="#00000000" Background="#FF497EEE" Click="btnSklad_Click" >
+                        <materialDesign:PackIcon Height="25" Width="25">
+                            <materialDesign:PackIcon.Background>
+                                <ImageBrush ImageSource="iconfinder_Warehouse_1_4265794.png"/>
+                            </materialDesign:PackIcon.Background>
+
+
+                        </materialDesign:PackIcon>
+                    </Button>
+                </WrapPanel>
+            </WrapPanel>
+            <DataGrid  Name="GridView" Margin="0,10,0,0"  DockPanel.Dock="Bottom" GridLinesVisibility="Horizontal" IsReadOnly="True" MinWidth="500" MinHeight="280" HorizontalGridLinesBrush="#FF006EF1" FontSize="14" VerticalGridLinesBrush="Black" SelectionMode="Single" EnableColumnVirtualization="True" CanUserReorderColumns="False" SelectionChanged="GridView_SelectionChanged" Background="#FFF0F0F0" BorderBrush="#FFF0F0F0" MouseDoubleClick="GridView_MouseDoubleClick" >
+
+                <DataGrid.Style>
+                    <Style TargetType="DataGrid">
+                        <Setter Property="ColumnWidth" Value="*"/>
+
+                    </Style>
+                </DataGrid.Style>
+            </DataGrid>
+        </DockPanel>
+        <Grid Visibility="Hidden" Name="global_grid">
+            <Grid Background="Black" Opacity="0.4"/>
+            <materialDesign:Card Width="400"   VerticalAlignment="Center"  HorizontalAlignment="Center" Background="White">
+
+                <StackPanel  VerticalAlignment="Center" Margin="10" HorizontalAlignment="Center">
+                    <Label FontSize="14">Наименование товара</Label>
+                    <WrapPanel>
+                        <ComboBox  Name="NazvBoxList" DisplayMemberPath="title"  Height="35" Width="250" FontSize="14" SelectionChanged="KatBoxList_SelectionChanged"/>
+
+                        <Button Margin="5"  Name="Nazvbtn"  ToolTip="Редактирование наименований товара"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Style="{DynamicResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Right"  Height="35" Width="35" Background="#FF497EEE" BorderBrush="#FF6E9AF5" Click="Nazvbtn_Click">
+                            <Button.Content>
+                                <materialDesign:PackIcon Width="25"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Kind="ViewList" Foreground="White"/>
+                            </Button.Content>
+                        </Button>
+                    </WrapPanel>
+
+                    <Label FontSize="14">Категория</Label>
+                    <WrapPanel>
+                        <ComboBox  Name="KatBoxList" DisplayMemberPath="title"  Height="35" Width="250" FontSize="14" SelectionChanged="KatBoxList_SelectionChanged"/>
+
+                        <Button Margin="5"  Name="Katerbtn"  ToolTip="Редактирование категорий"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Style="{DynamicResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Right"  Height="35" Width="35" Background="#FF497EEE" BorderBrush="#FF6E9AF5" Click="Katerbtn_Click">
+                            <Button.Content>
+                                <materialDesign:PackIcon Width="25"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Kind="ViewList" Foreground="White"/>
+                            </Button.Content>
+                        </Button>
+                    </WrapPanel>
+                    <Label FontSize="14">Поставщик</Label>
+                    <WrapPanel>
+                        <ComboBox  Name="PostBoxList" DisplayMemberPath="title"  Height="35" Width="250" FontSize="14"/>
+
+                        <Button Margin="5"  Name="Postbtn"  ToolTip="Редактирование поставщиков"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Style="{DynamicResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Right"  Height="35" Width="35" Background="#FF497EEE" BorderBrush="#FF6E9AF5" Click="Postbtn_Click">
+                            <Button.Content>
+                                <materialDesign:PackIcon Width="25"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Kind="ViewList" Foreground="White"/>
+                            </Button.Content>
+                        </Button>
+                    </WrapPanel>
+                    <Label FontSize="14">Код товара</Label>
+                    <TextBox Name="StoimBox" Height="35" />
+                    <Label FontSize="14">Дата поставки</Label>
+                    <DatePicker Name="beginDate" Height="35" mah:TextBoxHelper.UseFloatingWatermark="True" mah:TextBoxHelper.Watermark="Выберете дату"   FontSize="12" IsTodayHighlighted="True"   />
+
+
+
+
+                    <DockPanel Margin="0,20,0,0">
+                        <Button Width="145" Background="#FF497EEE" BorderBrush="#FF6E9AF5" Foreground="White" Click="Button_Click_2">Добавить</Button>
+                        <Button Width="145" HorizontalAlignment="Right" Background="#FF497EEE" BorderBrush="#FF6E9AF5" Foreground="White" Click="Button_Click">Отменить</Button>
+                    </DockPanel>
+
+
+                </StackPanel>
+
+            </materialDesign:Card>
+        </Grid>
+        <Grid Visibility="Hidden" Name="printGrid">
+            <Grid Background="Black" Opacity="0.4"/>
+            <materialDesign:Card Width="1000"  FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Background="White">
+                <Grid>
+
+                    <StackPanel  VerticalAlignment="Center" >
+
+                        <WrapPanel>
+                            <Button  Width="30" Margin="920,5,5,5" Height="30" ToolTip="Сформировать договор" Background="#FF497EEE" BorderBrush="#FF6E9AF5" VerticalAlignment="Top" HorizontalAlignment="Right" VerticalContentAlignment="Center" Click="Button_Click_4">
+                            <Button.Content>
+                                <materialDesign:PackIcon Width="20" Height="20" Kind="File" Foreground="White"/>
+                            </Button.Content>
+                            </Button>
+                            <Button  Width="30" Margin="5" Height="30" ToolTip="Закрыть" Background="#FF497EEE" BorderBrush="#FF6E9AF5" VerticalAlignment="Top" HorizontalAlignment="Right" VerticalContentAlignment="Center" Click="Button_Click_1">
+                                <Button.Content>
+                                    <materialDesign:PackIcon Width="20" Height="20" Kind="Close" Foreground="White"/>
+                                </Button.Content>
+                            </Button>
+                        </WrapPanel>
+                        <Separator/>
+                        <WrapPanel>
+                            <Label Content="Товар" FontWeight="Bold" FontStyle="Italic"/>
+                            <Label Margin="680,0,0,0" HorizontalAlignment="Right" FontWeight="Bold" FontStyle="Italic">Поставщик</Label>
+                        </WrapPanel>
+                        <Separator/>
+                        <DockPanel>
+                            <StackPanel DockPanel.Dock="Left">
+                                <Label Content="Наименование товара:" HorizontalAlignment="Left"  VerticalAlignment="Top" FontWeight="Bold"/>
+                                <Label Name="naimtovar" Content="Масло подсолнечное" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+                                <Label Content="Количество на складе" HorizontalAlignment="Left"  VerticalAlignment="Top" FontWeight="Bold"/>
+                                <Label Name="kolvosklad" Content="0" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+                                <Label Content="Единица измерения" HorizontalAlignment="Left"  VerticalAlignment="Top" FontWeight="Bold"/>
+                                <Label Name="edizm" Content="шт" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+                                <Label Content="Категория" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"/>
+                                <Label Name="kateg" Content="Масло" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+                                <Label Content="Стоимость" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"/>
+                                <Label Name="stoim" Content="500 рублей" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="0,0,25,0" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                                <Label Content="ФИО:" HorizontalAlignment="Left"  VerticalAlignment="Top" FontWeight="Bold"/>
+                                <Label Name="Fio" Content="Антонов А.А." HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+                                <Label Content="Номер телефона" HorizontalAlignment="Left"  VerticalAlignment="Top" FontWeight="Bold"/>
+                                <Label Name="Phone" Content="+79807512447" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+                                <Label   Content="Адрес" HorizontalAlignment="Left"  VerticalAlignment="Top" FontWeight="Bold"/>
+                                <Label Name="adress" Content="г.Владимир, ул Октябрьская, дом 22" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+
+                            </StackPanel>
+                        </DockPanel>
+                        <Separator/>
+                        <Label HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic">Поставка товара</Label>
+                        <Separator/>
+                        <UniformGrid Columns="6"  Width="1000" HorizontalAlignment="Center">
+                            <StackPanel >
+                                <Label FontWeight="Bold">Индекс поставщика</Label>
+                                <Label Name="IndexPost" >1</Label>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label FontWeight="Bold">Код товара</Label>
+                                <Label Name="KodTovara" >00001</Label>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label FontWeight="Bold">Стоимость поставки</Label>
+                                <Label Name="StoimPost">1500 рублей</Label>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label FontWeight="Bold">Количество</Label>
+                                <Label Name="Kolvo">2</Label>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label FontWeight="Bold">Ответственный за поставку</Label>
+                                <Label Name="OtvZaPost">Антонов А.А.</Label>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label FontWeight="Bold">Дата поставки</Label>
+                                <Label Name="DataPost" >12.03.2021</Label>
+                            </StackPanel>
+                        </UniformGrid>
+                        <Separator/>
+                        <Label HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic">Сотрудник</Label>
+                        <Separator/>
+                        <UniformGrid Columns="8" Width="1000" HorizontalAlignment="Center">
+                            <StackPanel>
+                                <Label FontWeight="Bold">Фамилия</Label>
+                                <Label Name="FamSotr">Павлова</Label>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label FontWeight="Bold">Имя</Label>
+                                <Label Name="NameSotr">Анна</Label>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label FontWeight="Bold">Отчество</Label>
+                                <Label Name="OtchSotr">Николаевна</Label>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label FontWeight="Bold">Возраст</Label>
+                                <Label Name="VozrSotr">25 лет</Label>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label FontWeight="Bold">Стаж работы</Label>
+                                <Label Name="StajSotr">2 года</Label>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label FontWeight="Bold">Номер телефона</Label>
+                                <Label Name="NomerSotr">+79005827534</Label>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label FontWeight="Bold">Адрес проживания</Label>
+                                <Label Name="AdresSotr">г. Лакинск, ул. Советская, д-4, кв-13</Label>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label FontWeight="Bold">Должность</Label>
+                                <Label Name="DoljSotr">Продавец-кассир</Label>
+                            </StackPanel>
+                        </UniformGrid>
+
+                    </StackPanel>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Visibility="Hidden" Name="LoadingGrid">
+            <Grid Background="Black" Opacity="0.4"></Grid>
+            <materialDesign:Card Height="150" Width="350" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <mah:ProgressRing ></mah:ProgressRing>
+
+                    <Label VerticalAlignment="Center"  FontSize="24" Background="#00000000" Foreground="#DD212121">Пожалуйста подождите</Label>
+                </StackPanel>
+            </materialDesign:Card>
+
+        </Grid>
+       
+        <Grid Visibility="Visible" Name="Auth">
+            <Grid Background="Gray" Opacity="1"/>
+            <materialDesign:Card HorizontalAlignment="Center"  VerticalAlignment="Center" Height="400" Width="400" Background="White" Margin="196,10,196,9">
+                <WrapPanel HorizontalAlignment="Center" Height="350" Margin="0,50,0,0" Width="195">
+                    <materialDesign:PackIcon Width="30"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Kind="ViewList" Foreground="Transparent">
+                        <materialDesign:PackIcon.Background>
+                            <ImageBrush ImageSource="iconfinder_lock-security-pad-key_2205203.png"/>
+                        </materialDesign:PackIcon.Background>
+                    </materialDesign:PackIcon>
+                    <Label Content="Авторизация" HorizontalAlignment="Center"/>
+                </WrapPanel>
+            </materialDesign:Card>
+            <StackPanel HorizontalAlignment="Center"  Margin="196,118,196,9" VerticalAlignment="Center" Width="400" Height="292">
+                <Label FontSize="14" Margin="50,0" Content="Логин"/>
+                <TextBox x:Name="login" Width="300" Height="40" FontSize="16" Margin="50,0" VerticalContentAlignment="Center"/>
+                <Label FontSize="14" Margin="50,0" Content="Пароль"/>
+                <PasswordBox x:Name="pass" Width="300" Height="40" FontSize="16" Margin="50,0" VerticalContentAlignment="Center"/>
+                <Button x:Name="avtor"  Margin="50,10,0,0" Height="35" Foreground="White" Background="#FF497EEE" FontSize="14" BorderBrush="#FF6E9AF5" HorizontalAlignment="Left" Width="300" Click="avtor_Click" Content="Авторизоваться"/>
+
+            </StackPanel>
+            <materialDesign:Snackbar Name="informer"  VerticalContentAlignment="Top" MessageQueue="{materialDesign:MessageQueue}" FontSize="18" Background="#FF44A6F3"  />
+
+        </Grid>
+    </Grid>
+</Window>
