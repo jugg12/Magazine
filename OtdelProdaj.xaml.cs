@@ -27,38 +27,32 @@ namespace Magazine
     /// <summary>
     /// Логика взаимодействия для OtdelProdaj.xaml
     /// </summary>
-    
-
-
-    /// <summary>
-    /// Окно отдела продаж
-    /// </summary>
-    /// <param name="readonly" > предназначен для того, чтобы читать только документ, указанному по путит в переменной TempFile  </param>
     public partial class OtdelProdaj : Window
     {
-        
         string Login = "1";
         string password = "1";
         private readonly string TempFile = @"C:\Users\$Jugg$\Desktop\диплом\Договор.docx";
-   
-        // все использующиеся данные из бд
+        public OtdelProdaj()
+        {
+            InitializeComponent();
+        }
+
+
+
         tabledata.sklad sklad;
         tabledata.kategorii kategoria;
         tabledata.postavshik postavshik;
         PostTovaraOtProdaj win;
         Sklad win2;
         int ka = 5;
+        
+        
 
 
-       
-        /// <summary>
-        /// Метод обновления данных
-        /// </summary>
-        /// <param> name="SelectedData" > предназначен для вывода данных, которые были запомниты переменной сначала и потом  </param>
         public async Task UpdateInfo()
         {
 
-          // Создает список в BoxList'ах и обновляет его( выводя на экран обновленную информацию)
+          
             List<SelectedData> sklad_data = new List<SelectedData>();
           
           
@@ -70,13 +64,12 @@ namespace Magazine
            
         
             double maxPrice, minPrice;
-           /// <param> name="pr" переменная принимает значения максимума и минимума кода товара(для простоты поиска) из таблицы ObshInforOtPr(общей информации экрана) </param>
+           
             var pr = await sql.CommnadWithQuery("SELECT MAX([Код данного товара]) as [MAX(Код данного товара)], MIN([Код данного товара]) as [MIN(Код данного товара)] from ObshInforOtPr");
             if (pr.Select()[0][0].ToString() != "")
             {
                 maxPrice = Convert.ToDouble(pr.Select()[0]["MAX(Код данного товара)"].ToString());
                 minPrice = Convert.ToDouble(pr.Select()[0]["MIN(Код данного товара)"].ToString());
-                //ввожу условие для ползунка
                 if (maxPrice != minPrice)
                 {
 
@@ -94,7 +87,6 @@ namespace Magazine
                 }
 
             }
-            //также как с pr создаются переменные для других, делется для BoxList'a/списка
             var tov = await sql.CommnadWithQuery("SELECT id, [Название товара] as [Название товара] from Sklad");
             var tov_a = tov.Select();
             for (int i = 0; i < tov_a.Length; i++)
@@ -131,7 +123,7 @@ namespace Magazine
                 postavshikdop_data.Add(new SelectedData() { id = postdop_a[i]["id"].ToString(), title = postdop_a[i]["ФИО"].ToString() });
                
             }
-            //обновление данных Boxlist'a
+
             TovarBoxlist.ItemsSource = sklad_data;
             KatBoxList.ItemsSource = kategoria_data;
             PostBoxList.ItemsSource = postavshik_data;
@@ -145,16 +137,10 @@ namespace Magazine
         }
         Sqlcon sql = new Sqlcon();
 
-        /// <summary>
-        /// Метод UpdateTable предназначен для обновления таблицы
-        /// </summary>
         async Task UpdateTable()
         {
-            ///<summary>
-            ///метод LoadingShow - выводит изображение загрузки
-            /// </summary>
+
             LoadingShow();
-            //попытка отобразить таблицу
             try
             {
 
@@ -170,7 +156,7 @@ namespace Magazine
             }
             LoadingShow();
         }
-        //метод вызывающий кружок загрузки( для красоты)
+
         void LoadingShow()
         {
             if (LoadingGrid.Visibility == Visibility.Hidden)
@@ -179,7 +165,6 @@ namespace Magazine
             }
             else { LoadingGrid.Visibility = Visibility.Hidden; }
         }
-       
         public class SelectedData
         {
             public string id { get; set; }
@@ -192,9 +177,7 @@ namespace Magazine
         {
 
         }
-        /// <summary>
-        /// Метод очистки значений
-        /// </summary>
+
         private void btnclr_Click(object sender, RoutedEventArgs e)
         {
             priceSlide.LowerValue = priceSlide.Minimum;
@@ -205,26 +188,23 @@ namespace Magazine
             datePickerPost.Text = "";
 
         }
-        /// <summary>
-        /// Метод добавления
-        /// </summary>
-        /// <param> ссылается на метод UpdateInfo</param>
+
         private async void btndob_Click(object sender, RoutedEventArgs e)
         {
             await UpdateInfo();
             global_grid.Visibility = Visibility.Visible;
         }
-        //кнопка вывода общей информации
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             global_grid.Visibility = Visibility.Hidden;
         }
-        //кнопка скрытия общей информации
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             printGrid.Visibility = Visibility.Hidden;
         }
-        //кнопка информации сотрудников(переводящая на другую форму)
+
         private void btnsotr_Click(object sender, RoutedEventArgs e)
         {
             this.IsEnabled = false;
@@ -232,34 +212,30 @@ namespace Magazine
             SotrOtProdaj m = new SotrOtProdaj(this,win,sql);
             m.Show();
         }
-        //кнопка информации поставщиков(переводящая на другую форму)
+
         private void btnPost_Click(object sender, RoutedEventArgs e)
         {
             this.IsEnabled = false;
             PostOtdProdaj m = new PostOtdProdaj(this,win,sql);
             m.Show();
         }
-        //кнопка информации о поставках товаров(переводящая на другую форму)
+
         private void btnPostTovara_Click(object sender, RoutedEventArgs e)
         {
             this.IsEnabled = false;
             PostTovaraOtProdaj m = new PostTovaraOtProdaj(this,sql);
             m.Show();
         }
-        //кнопка информации складов(переводящая на другую форму)
+
         private void btnSklad_Click(object sender, RoutedEventArgs e)
         {
             this.IsEnabled = false;
             Sklad m = new Sklad(this,win, sql);
             m.Show();
         }
-        /// <summary>
-        /// Метод удаления данных
-        /// </summary>
-        
+
         private async void btnud_Click(object sender, RoutedEventArgs e)
         {
-            //проверка на выбранность элемента
             if (GridView.SelectedItem != null)
             {
                 
@@ -283,7 +259,7 @@ namespace Magazine
          
             
         
-        //метод двойного нажатия на главную таблицу
+
         private async void GridView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (GridView.SelectedItem != null)
@@ -291,14 +267,11 @@ namespace Magazine
                 await ShowInfo((GridView.SelectedItem as DataRowView)[0].ToString());
             }
         }
-        /// <summary>
-        /// Метод предоставления информации
-        /// </summary>
-        /// <param> "info" предоставляет информацию по наименованию в колонке UpdateInfo</param>
+
         public async Task ShowInfo(string id)
         {
 
-           //вывод информации в "карточку", предоставляющую подробную информацию
+           
             //var info_s = await sql.CommnadWithQuery("SELECT [Название товара] , [ФИО] , [Количество на складе] , [Номер телефона], [Единица измерения] , [Адрес] , [Категория] , [Стоимость(руб.)] , [Индекс поставщика], [Код товара] , [Стоимость поставки] , [Количество] , [Ответственный за поставку], [Дата поставки] , [Фамилия] , [Имя] , [Отчество] , [Возраст] , [Стаж работы на предприятии], [Рабочий номер телефона], [Адрес проживания] , [Должность] from [Sklad],[Postavshik],[PostavkiTovara],[Sotrudniki] ");
             var info_s = await sql.CommnadWithQuery("SELECT [Название товара] , [ФИО] , [Количество на складе] , [Номер телефона], [Единица измерения] , [Адрес] , [Категория] , [Стоимость(руб.)], [Индекс поставщика], [Код товара] , [Стоимость поставки] , [Количество] , [Ответственный за поставку], [Дата поставки] , [Фамилия] , [Имя] , [Отчество] , [Возраст] , [Стаж работы на предприятии], [Рабочий номер телефона], [Адрес проживания] , [Должность] from [ObshInforOtPr] JOIN [Sklad] on [Наименование товара] = [Название товара] JOIN [Postavshik] on [Поставщик] = [ФИО] JOIN [PostavkiTovara] on [Дата поставки товара] = [Дата поставки] AND [Код данного товара] = [Код товара] JOIN [Sotrudniki] on [Ответственный за поставку] = [Фамилия]+' '+[Имя]+' '+[Отчество] where [obshid] = " + id);
 
@@ -336,14 +309,12 @@ namespace Magazine
             printGrid.Visibility = Visibility.Visible;
 
         }
-        /// <summary>
-        /// загрузка окна
-        /// </summary>
+
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
 
-            
+
             await UpdateTable();
             await UpdateInfo();
         }
@@ -352,14 +323,14 @@ namespace Magazine
         {
 
         }
-        //кнопка редоктирования товаров на складе
+
         private void Nazvbtn_Click(object sender, RoutedEventArgs e)
         {
             this.IsEnabled = false;
             Sklad s = new Sklad(this,win,sql);
             s.Show();
         }
-        //кнопка редоктирования поставщиков
+
         private void Postbtn_Click(object sender, RoutedEventArgs e)
         {
             this.IsEnabled = false;
@@ -367,7 +338,7 @@ namespace Magazine
             PostOtdProdaj p = new PostOtdProdaj(this,win,sql);
             p.Show();
         }
-        //кнопка добавления общей информации
+
         private async void Button_Click_2(object sender, RoutedEventArgs e)
         {
             if (NazvBoxList.Text != "" & KatBoxList.Text != "" & PostBoxList.Text != "" & StoimBox.Text != "" & beginDate.Text != "")
@@ -396,28 +367,40 @@ namespace Magazine
 
             }
         }
-        //кнопка поиска по таблице
+
         private async void btnfind_Click(object sender, RoutedEventArgs e)
         {
             LoadingShow();
-            
-            /// <param> "query" принимает все значения поиска по таблице( в SQL "запросе")UpdateInfo</param>
+
             string query = "SELECT obshid,[Наименование товара] as [Название товара], [Категория товара] as [Категория], [Поставщик] as [Поставщик], [Код данного товара] as [Код товара], [Дата поставки товара] as [Дата поставки] from [ObshInforOtPr] as [ObshInforOtPr] WHERE [Код данного товара] BETWEEN '" + Convert.ToInt32(priceSlide.LowerValue) + "' AND '" + Convert.ToInt32(priceSlide.UpperValue)+"'";
             if (TovarBoxlist.Text != "")
             {
 
+
                 query += " AND [Наименование товара] = '" + (TovarBoxlist.Text)+"'";
+
+                
 
             }
 
             if (KategBoxlist.Text != "")
             {
+
+
                 query += " AND [Категория товара] = '" + (KategBoxlist.Text)+"'";
+
+               
+
             }
 
             if (PostBoxlist.Text != "")
             {
-                query += " AND [Поставщик] = '" + (PostBoxlist.Text)+"'";  
+
+
+                query += " AND [Поставщик] = '" + (PostBoxlist.Text)+"'";
+
+               
+
             }
 
 
@@ -439,14 +422,14 @@ namespace Magazine
             
 
         }
-        //кнопка редоктирования категорий
+
         private void Katerbtn_Click(object sender, RoutedEventArgs e)
         {
             this.IsEnabled = false;
             Kategorii k = new Kategorii(this,win2,sql);
             k.Show();
         }
-        //авторизация
+
         private void avtor_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -474,19 +457,18 @@ namespace Magazine
                 informer.MessageQueue.Enqueue("Проблемы с авторизацией. Обратитесь в тех.поддержку");
             }
         }
-        /// <summary>
-        /// Метод вывода данных в Excel
-        /// </summary>
-        /// <param> "Print" принимает значение таблицы GridView</param>
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+
+            
+        }
+
         private void btnviv_Click(object sender, RoutedEventArgs e)
         {
-            //отдельный прописанный метод PrintExel
             PrintExcel.Print(GridView,ka);
         }
-        /// <summary>
-        /// Формирование договора
-        /// </summary>
-        /// <param> "ReplaceWord" ищет ссылку в документе Word и заменяет ее на данные</param>
+
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             var Date = Convert.ToString(DateTime.Now);
@@ -518,8 +500,7 @@ namespace Magazine
             var Dolj = Convert.ToString(DoljSotr.Content);
 
             // Перевод в ворд
-            string filename = "";
-                var wordapp = new Word.Application();   
+            var wordapp = new Word.Application();   
             wordapp.Visible = false;
             try
             {
@@ -553,8 +534,7 @@ namespace Magazine
                 ReplaceWord("{Otvza}", Otv, wordDoc);
                 ReplaceWord("{Kod}", Kod, wordDoc);
                 ReplaceWord("{Date}", Date, wordDoc);
-               
-                /// <param> "SaveAs" сохраняет в файле ДоговорПередел всю информацию</param>
+
                 wordDoc.SaveAs(@"C:\Users\$Jugg$\Desktop\диплом\ДоговорПередел.docx");
                
                 wordapp.Visible = true;
@@ -563,20 +543,11 @@ namespace Magazine
                 MessageBox.Show("Произошла ошибка");
             }
         }
-        /// <summary>
-        /// Метод поиска по ссылкам
-        /// </summary>
-        /// <param> ссылается на метод UpdateInfo</param>
         private void ReplaceWord(string stub, string text, Word.Document wordDocument)
         {
             var range = wordDocument.Content;
             range.Find.ClearFormatting();
             range.Find.Execute(FindText:stub,ReplaceWith:text);
-        }
-
-        private void PostBoxlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

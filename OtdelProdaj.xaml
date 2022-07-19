@@ -29,7 +29,7 @@
                 </StackPanel>
                 <StackPanel Margin="10,0,0,0">
                     <Label FontSize="14" Height="43" Width="198">Поставщик</Label>
-                    <ComboBox x:Name="PostBoxlist"   DisplayMemberPath="title" Width="200" FontSize="14" SelectionChanged="PostBoxlist_SelectionChanged"/>
+                    <ComboBox x:Name="PostBoxlist"   DisplayMemberPath="title" Width="200" FontSize="14"/>
                 </StackPanel>
                 <StackPanel Margin="10,0,0,0">
                     <Label FontSize="14" Height="43" Width="198">Код товара</Label>
@@ -311,7 +311,7 @@
             </materialDesign:Card>
 
         </Grid>
-       
+        <materialDesign:Snackbar Name="informer"  VerticalContentAlignment="Top" MessageQueue="{materialDesign:MessageQueue}" FontSize="18" Background="#FF44A6F3"  />
         <Grid Visibility="Visible" Name="Auth">
             <Grid Background="Gray" Opacity="1"/>
             <materialDesign:Card HorizontalAlignment="Center"  VerticalAlignment="Center" Height="400" Width="400" Background="White" Margin="196,10,196,9">
@@ -332,7 +332,7 @@
                 <Button x:Name="avtor"  Margin="50,10,0,0" Height="35" Foreground="White" Background="#FF497EEE" FontSize="14" BorderBrush="#FF6E9AF5" HorizontalAlignment="Left" Width="300" Click="avtor_Click" Content="Авторизоваться"/>
 
             </StackPanel>
-            <materialDesign:Snackbar Name="informer"  VerticalContentAlignment="Top" MessageQueue="{materialDesign:MessageQueue}" FontSize="18" Background="#FF44A6F3"  />
+
 
         </Grid>
     </Grid>
